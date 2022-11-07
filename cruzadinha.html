@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js"></script>
+    <title>Palavra Cruzada</title>
+</head>
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    input {
+        width: 32px;
+        height: 28px;
+        text-transform: uppercase;
+        text-align: center;
+        border: 4px solid transparent;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    input:focus,
+    input:focus {
+        box-shadow: 0 0 0 0;
+        outline: 0;
+    }
+
+    span {
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    .container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .pai {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        align-items: center;
+
+        margin: 50px;
+    }
+
+    .dicas {
+        padding: 15px;
+        border-radius: 5px;
+        transition: all .2s;
+    }
+
+    .legenda {
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        margin-left: 15px;
+        padding: 50px;
+        border-radius: 10px;
+        width: 500px;
+        height: 500px;
+        overflow: hidden;
+        overflow-y: scroll;
+    }
+
+    .disable {
+        background-color: white;
+    }
+
+    .table {
+        width: 100px;
+    }
+
+    .cpu {
+        background-color: #f3b578;
+        color: white;
+    }
+
+    .ula {
+        background-color: #f78376;
+        color: white;
+    }
+
+    .adressbus {
+        background-color: #8f3c68;
+        color: white;
+    }
+
+    .dma {
+        background-color: #da4c66;
+        color: white;
+    }
+
+    .cs {
+        background-color: #5cacc4;
+        color: white;
+    }
+
+    .databus {
+        background-color: #8cd19d;
+        color: white;
+    }
+
+    .dualcore {
+        background-color: #fcb653;
+        color: white;
+    }
+
+    .quadcore {
+        background-color: #59b390;
+        color: white;
+    }
+
+    .rom {
+        background-color: #e47c5d;
+        color: white;
+    }
+
+    .registradores {
+        background-color: #e32d40;
+        color: white;
+    }
+
+
+    .cache {
+        background-color: #2eb3a1;
+        color: white;
+    }
+
+    .thread {
+        background-color: #d6496c;
+        color: white;
+    }
+
+    .memoria-de-massa {
+        background-color: #f07818;
+        color: white;
+    }
+
+    .eprom {
+        background-color: #087E8B;
+        color: white;
+    }
+
+    .i7 {
+        background-color: #9E4B4E;
+        color: white;
+    }
+
+    .i5 {
+        background-color: #277A86;
+        color: white;
+    }
+
+    .flash {
+        background-color: #f8db7e;
+        color: white;
+    }
+
+    .ram {
+        background-color: #2eb3a1;
+        color: white;
+    }
+
+    .dicas:hover {
+        transform: scale(1.1);
+    }
+</style>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Palavra Cruzada</title>
+</head>
+
+<body>
+    <h1>Cruzadinha</h1>
+    <div class="container">
+        <div class="pai">
+            <table class="table" id="cruzadinha">
+                <tr>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="cpu" id="C" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="rom" id="R" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="rom" id="O" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="rom" id="M" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="dualcore" id="D" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="quadcore" id="Q" onkeyup="validacao(this)" maxlength="1"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="cpu" id="P" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="registradores" id="E" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="eprom" id="P" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="eprom" id="R" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="eprom" id="O" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="memoria-de-massa" id="M" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="dualcore" id="U" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="quadcore" id="U" onkeyup="validacao(this)" maxlength="1"></td>
+
+                </tr>
+                <tr>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="cpu" id="U" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="ula" id="L" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="ula" id="A" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="registradores" id="G" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="memoria-de-massa" id="E" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="dualcore" id="A" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="quadcore" id="A" onkeyup="validacao(this)" maxlength="1"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="i7" id="I" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="i7" id="7" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="registradores" id="I" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="memoria-de-massa" id="M" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="dualcore" id="L" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="quadcore" id="D" onkeyup="validacao(this)" maxlength="1"></td>
+
+                </tr>
+                <tr>
+                    <td><input type="text" class="i5" id="I" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="i5" id="5" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="registradores" id="S" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="memoria-de-massa" id="O" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="dualcore" id="C" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="quadcore" id="C" onkeyup="validacao(this)" maxlength="1"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="thread" id="T" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="registradores" id="T" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="cache" id="C" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="dma" id="D" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="memoria-de-massa" id="R" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="dualcore" id="O" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="quadcore" id="O" onkeyup="validacao(this)" maxlength="1"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="thread" id="H" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="registradores" id="R" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="cache" id="A" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="dma" id="M" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="databus" id="D" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="memoria-de-massa" id="I" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="dualcore" id="R" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="quadcore" id="R" onkeyup="validacao(this)" maxlength="1"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="thread" id="R" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="registradores" id="A" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="cache" id="C" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="dma" id="A" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="databus" id="A" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="memoria-de-massa" id="A" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="dualcore" id="E" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="quadcore" id="E" onkeyup="validacao(this)" maxlength="1"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="thread" id="E" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="registradores" id="D" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="cache" id="H" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="databus" id="T" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="memoria-de-massa" id="D" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="thread" id="A" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="registradores" id="O" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="cache" id="E" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="databus" id="A" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="memoria-de-massa" id="E" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="thread" id="D" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="registradores" id="R" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="databus" id="B" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="memoria-de-massa" id="M" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="cs" id="C" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="cs" id="S" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="registradores" id="E" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="databus" id="U" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="memoria-de-massa" id="A" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="flash" id="F" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="flash" id="L" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="flash" id="A" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="registradores" id="S" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="flash" id="H" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="databus" id="S" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="memoria-de-massa" id="S" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="adressbus" id="A" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="adressbus" id="D" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="adressbus" id="R" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="adressbus" id="E" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="adressbus" id="S" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="adressbus" id="S" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="adressbus" id="B" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="adressbus" id="U" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="adressbus" id="S" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="ram" id="R" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="memoria-de-massa" id="A" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" class="ram" id="M" onkeyup="validacao(this)" maxlength="1"></td>
+                    <td><input type="text" disabled class="disable" id="" onkeyup="validacao(this)" maxlength="1"></td>
+                </tr>
+            </table>
+
+            <div class="legenda">
+                <span class="dicas cpu">1. Unidade Central de Processamento responsável por realizar instruções
+                    básicas do software e processar dados enviados e recebidos.<br></span>
+                <span class="dicas ula">2. Unidade Aritmética e Lógica responsável pelas operações artiméticas
+                    (cálculos) e lógicas (decisões), comandada por instruções armazenadas na memória.<br></span>
+                <span class="dicas registradores">3. É um tipo de memória que está localizada dentro da CPU,
+                    responsável pelo armazenamento de bits.<br></span>
+                <span class="dicas ram">4. Memória volátil responsável pelo armazenamento de dados
+                    randômicos;<br></span>
+                <span class="dicas rom">5. Memória responsável pelo armazenamento das informações gravadas pelo
+                    fabricante; é permitida apenas a leitura, já que, uma vez gravada, não poderão ser alteradas ou
+                    apagadas.<br></span>
+                <span class="dicas eprom">6. Memória não volátil que mantém os dados mesmo quando a energia é
+                    interrompida.<br></span>
+                <span class="dicas flash">7. Memória que mantém informações armazenadas sem a necessidade de fonte
+                    de energia.<br></span>
+                <span class="dicas memoria-de-massa">8. Memória não volátil que armazena grandes quantidades de
+                    informação e é acessada por intermédio da memória RAM, cache, etc. <br></span>
+                <span class="dicas dma">9. Método que permite que um depositivo de E/S envie ou receba dados
+                    diretamente da memória principal, ignorando a CPU, acelerando as operações. <br></span>
+                <span class="dicas cs">10. Mecanismo fundamental que permite a CPU acessar às memórias e/ou
+                    periféricos externos.<br></span>
+                <span class="dicas adressbus">11. Componente que especifica um endereço físico na memória;<br></span>
+                <span class="dicas databus">12. Responsável pela transmissão de dados entre os componentes; <br></span>
+                <span class="dicas i5">13. Tem o Turbo Boost chegando até 12 threads e seis núcleos e chegando a
+                    uma frequência máxima de 4.3 GHZ, <br></span>
+                <span class="dicas i7">14. Pode chegar até 8 cores e 16 threads com uma frequência máxima de 5.1
+                    GHZ, isso falando dos processadores das últimas gerações.<br></span>
+                <span class="dicas dualcore">15. É um processador com dois núcleos de processamento, como por
+                    exemplo Intel 2 DUO;<br></span>
+                <span class="dicas quadcore">16. É um processador com quatro nucleos de processamento, como por
+                    exemplo INTEL CORE i3 9100F.<br></span>
+                <span class="dicas thread">17. Definem, basicamente, como será o funcionamento do processador,
+                    recebendo e executandoinstruções.<br></span>
+                <span class="dicas cache">18. Armazena dados para agilizar execução de aplicações;</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function validacao(input) {
+            var id = input.id
+            var valor = input.value.toUpperCase()
+            if (valor === id) {
+                input.style = `background-color:rgb(110, 255, 110);`
+
+            } else {
+                input.style = `background-color:rgb(251, 73, 73);`
+            }
+        }
+    </script>
+</body>
+
+</html>
